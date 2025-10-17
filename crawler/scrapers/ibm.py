@@ -7,7 +7,7 @@ def scrape_ibm():
     res = requests.get(url, timeout=10)
     res.raise_for_status()
 
-    soup = BeautifulSoup(res.text, "html.parser")
+    soup = BeautifulSoup(res.text, "lxml")
     events = []
 
     # Example selector: Adjust based on IBM blog structure
