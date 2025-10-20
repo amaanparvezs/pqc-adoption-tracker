@@ -3,15 +3,29 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def scrape_ibm():
-    url = "https://research.ibm.com/blog"   # IBM Research Blog
-    res = requests.get(url, timeout=10)
-    res.raise_for_status()
+    base_url = "https://research.ibm.com/blog"
+    page = 1
 
-    soup = BeautifulSoup(res.text, "lxml")
+    articles = []
     events = []
 
+    while True:
+        url = f"{base_url}?page={page}"
+        print(f"scraping IBM Blog page {page}")
+        result = requests.get(url, timeout=10)
+        if result.status_code != 200:
+            print("No more pages or error")
+            break
+        soup = BeautifulSoup(result.text, "lxml")
+        page_articles = soup.select("article")
+        articles.extend(page_articles)
+        if not articles:
+            print("No articles found.")
+            break
+
+        page += 1
+
     # Example selector: Adjust based on IBM blog structure
-    articles = soup.select("article")  # Each article block
     for article in articles:
         title_tag = article.find("a")
         date_tag = article.find("time")
@@ -32,5 +46,7 @@ def scrape_ibm():
             "source": "IBM Research Blog"
         }
         events.append(event)
+
+    print(f"Scrape successful.\nTotal articles scraped: {len(events)}")
 
     return events

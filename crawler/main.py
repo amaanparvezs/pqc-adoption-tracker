@@ -1,6 +1,7 @@
 from db import init_db, insert_event
 from scrapers.ibm import scrape_ibm
 
+
 def run_all_scrapers():
     print("Initializing DB...")
     init_db()
@@ -12,6 +13,7 @@ def run_all_scrapers():
     for event in ibm_events:
         insert_event(event)
         print(f"Inserted: {event['url']}")
+
 
 if __name__ == "__main__":
     run_all_scrapers()
