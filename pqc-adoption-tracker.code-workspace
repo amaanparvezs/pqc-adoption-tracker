@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "scraper"
+		},
+		{
+			"path": "pqc-backend"
+		},
+		{
+			"path": "database"
+		}
+	],
+	"settings": {}
+}
