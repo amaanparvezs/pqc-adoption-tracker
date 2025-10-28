@@ -18,8 +18,6 @@ def scrape_ibm_rss():
     company = "IBM"
     source = soup.find("generator").text
 
-    print(source)
-
     for article in articles:
         url = article.find("link").text if article.find("link") else None
         title = article.find("title").text if article.find("title") else None
